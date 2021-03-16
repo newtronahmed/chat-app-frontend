@@ -9,9 +9,9 @@ let socket;
 function ListItemLink (props){
   return <ListItem button component={Link}  {...props}></ListItem>
 }
-
+const ENPOINT = 'https://tranquil-fjord-38065.herokuapp.com/'
 export default function Chat() {
-  const ENPOINT = 'localhost:3001'
+ 
   let {room_id,room_name} = useParams();
   const [messages,setMessages] = useState([])
   const [rooms,setRooms] = useState([])

@@ -3,7 +3,7 @@ import { TextField, Button } from '@material-ui/core'
 import {useUserContext} from '../context/userContext'
 import useStyles from './style'
 import { Redirect } from 'react-router-dom'
-
+const ENDPOINT = 'https://tranquil-fjord-38065.herokuapp.com/'
 export default function Login() {
 const classes = useStyles()
     const [formData,setFormData] = useState({email:'',password:''})
@@ -11,7 +11,7 @@ const classes = useStyles()
     const {user,setUser} = useUserContext()
    const handleSubmit = (e)=>{
        e.preventDefault()
-        fetch('http://localhost:3001/login',{
+        fetch(ENDPOINT+'login',{
             method:'POST',
             credentials:'include',
             headers:{

@@ -2,13 +2,14 @@ import React, { Component,useContext } from 'react'
 import {createContext} from  'react'
  const UserContext = createContext();
 export const useUserContext = ()=>(useContext(UserContext))
+const ENDPOINT='https://tranquil-fjord-38065.herokuapp.com/'
 export default class UserContextProvider extends Component {
    
     state = {
         user:''
     }
     componentDidMount(){
-        fetch('http://localhost:3001/verify-user',{
+        fetch(ENDPOINT+'verify-user',{
             credentials:'include',
             headers:{
                 'Content-Type':'application/json',

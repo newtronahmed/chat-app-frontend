@@ -6,7 +6,7 @@ import {Card,CardContent, Grid, Typography, InputLabel,Button, TextField} from '
 
 export default function Home() {
    
-    const ENPOINT = 'localhost:3001'
+    const ENPOINT = 'https://tranquil-fjord-38065.herokuapp.com/'
     const [room,setroom] = useState('')
     const [rooms,setRooms] = useState([])
     const {user} = useUserContext()

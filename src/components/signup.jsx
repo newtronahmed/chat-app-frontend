@@ -3,7 +3,7 @@ import { TextField, Button } from '@material-ui/core'
 import {useUserContext} from '../context/userContext'
 import {Redirect} from 'react-router-dom'
 import useStyles from './style'
-
+const ENDPOINT='https://tranquil-fjord-38065.herokuapp.com/'
 export default function Signup() {
     const classes = useStyles()
     const [formData,setFormData] = useState({email:'',password:'',name:''})
@@ -13,7 +13,7 @@ export default function Signup() {
         e.preventDefault()
         console.log(formData);
         
-        fetch('http://localhost:3001/signup',{
+        fetch(ENDPOINT+'signup',{
             method:'POST',
             mode:'cors',
             credentials:'include',
