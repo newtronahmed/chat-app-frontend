@@ -3,7 +3,7 @@ import { TextField, Button } from '@material-ui/core'
 import {useUserContext} from '../context/userContext'
 import {Redirect} from 'react-router-dom'
 import useStyles from './style'
-const ENDPOINT='https://tranquil-fjord-38065.herokuapp.com/'
+const ENDPOINT= process.env.REACT_APP_API_ENDPOINT || 'http://localhost:3001'
 export default function Signup() {
     const classes = useStyles()
     const [formData,setFormData] = useState({email:'',password:'',name:''})
