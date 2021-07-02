@@ -16,7 +16,7 @@ export default function Navbar() {
                     </Typography>
                    {!user&&<Button component={Link} to={'/login'} className={classes.nav_links}>Login</Button>}
                    {!user&&<Button component={Link} to={'/signup'} className={classes.nav_links}>Signup</Button>}
-                   {user && <Button component={Link} className={classes.nav_links}>Add Room</Button>}
+                   {user && <Button  className={classes.nav_links}>Add Room</Button>}
                    {/* {user&&<Button component={Link} className={classes.nav_links}>c</Button>} */}
                 </Toolbar>
             </AppBar> 

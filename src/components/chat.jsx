@@ -9,13 +9,13 @@ let socket;
 function ListItemLink (props){
   return <ListItem button component={Link}  {...props}></ListItem>
 }
-const ENPOINT =  process.env.REACT_APP_API_ENDPOINT || 'http://localhost:3001'
+const ENPOINT =   process.env.REACT_APP_API_ENDPOINT || 'http://localhost:3001/'
 export default function Chat() {
  
   let {room_id,room_name} = useParams();
   const [messages,setMessages] = useState([])
   const [rooms,setRooms] = useState([])
-  const [selectedRoom,setSelectedRoom] = useState('6038d884b50f6e02b851e0c6')
+  const [selectedRoom,setSelectedRoom] = useState('')
   const [members,setMembers] = useState()
   const {user} =  useUserContext()
 const [message,setMessage] = useState('')
@@ -48,9 +48,10 @@ const [message,setMessage] = useState('')
     socket.on('all-rooms',(allrooms)=>{
       console.log('all rooms',allrooms)
       setRooms(allrooms)
+      
+      // setSelectedRoom(allrooms[0]);
 
-  })
-   console.log('all room') 
+    })
   }, [])
   
   useEffect(() => {

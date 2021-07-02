@@ -32,7 +32,7 @@ export default function Home() {
     }, [ENPOINT])
     useEffect(() => {
         socketRef.current.on('all-rooms',(allrooms)=>{
-            // console.log('all rooms',allrooms)
+            console.log('all rooms',allrooms)
             setRooms(allrooms)
         })
         

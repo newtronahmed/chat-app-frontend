@@ -2,7 +2,7 @@ import React, { Component,useContext } from 'react'
 import {createContext} from  'react'
  const UserContext = createContext();
 export const useUserContext = ()=>(useContext(UserContext))
-const ENDPOINT= process.env.REACT_APP_API_ENDPOINT || 'http://localhost:3001'
+const ENDPOINT= 'http://localhost:3001/' ||  process.env.REACT_APP_API_ENDPOINT 
 export default class UserContextProvider extends Component {
    
     state = {
@@ -12,7 +12,7 @@ export default class UserContextProvider extends Component {
         fetch(ENDPOINT+'verify-user',{
             credentials:'include',
             headers:{
-                'Content-Type':'application/json',
+                'Content-Type':'application/json'
             },
           }).then(res=>{
             return res.json()

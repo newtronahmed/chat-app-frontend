@@ -3,7 +3,7 @@ import { TextField, Button } from '@material-ui/core'
 import {useUserContext} from '../context/userContext'
 import useStyles from './style'
 import { Redirect } from 'react-router-dom'
-const ENDPOINT =  process.env.REACT_APP_API_ENDPOINT || 'http://localhost:3001'
+const ENDPOINT =   process.env.REACT_APP_API_ENDPOINT || 'http://localhost:3001/'
 export default function Login() {
 const classes = useStyles()
     const [formData,setFormData] = useState({email:'',password:''})
@@ -14,8 +14,10 @@ const classes = useStyles()
         fetch(ENDPOINT+'login',{
             method:'POST',
             credentials:'include',
+            mode:'cors',
             headers:{
                 'Content-Type':'application/json',
+
             },
             body:JSON.stringify(formData),
         }).then(res=>{

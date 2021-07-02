@@ -3,7 +3,7 @@ import { TextField, Button } from '@material-ui/core'
 import {useUserContext} from '../context/userContext'
 import {Redirect} from 'react-router-dom'
 import useStyles from './style'
-const ENDPOINT= process.env.REACT_APP_API_ENDPOINT || 'http://localhost:3001'
+const ENDPOINT= process.env.REACT_APP_API_ENDPOINT || 'http://localhost:3001/'
 export default function Signup() {
     const classes = useStyles()
     const [formData,setFormData] = useState({email:'',password:'',name:''})
@@ -18,7 +18,7 @@ export default function Signup() {
             mode:'cors',
             credentials:'include',
             headers:{
-                'Content-Type':'application/json',
+                'Content-Type':'application/json'
             },
             body:JSON.stringify(formData),
         }).then(res=>{ 
