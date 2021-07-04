@@ -1,12 +1,14 @@
-import React,{useEffect,useState,useContext,useRef} from 'react'
+import React,{useEffect,useRef,useState} from 'react'
 import io from 'socket.io-client'
 import {Link,Redirect} from 'react-router-dom'
 import {useUserContext} from '../context/userContext'
-import {Card,CardContent, Grid, Typography, InputLabel,Button, TextField} from '@material-ui/core'
+import {Card,CardContent, Grid, Typography, Button, TextField} from '@material-ui/core'
+// import ENDPOINT from '../config/endpoint';
 
 export default function Home() {
    
-    const ENPOINT = process.env.REACT_APP_API_ENDPOINT || 'http://localhost:3001'
+    const ENPOINT = process.env.REACT_APP_API_ENDPOINT 
+
     const [room,setroom] = useState('')
     const [rooms,setRooms] = useState([])
     const {user} = useUserContext()

@@ -1,14 +1,16 @@
 import React, { Component,useContext } from 'react'
 import {createContext} from  'react'
+import ENDPOINT from '../config/endpoint';
  const UserContext = createContext();
 export const useUserContext = ()=>(useContext(UserContext))
-const ENDPOINT= 'http://localhost:3001/' ||  process.env.REACT_APP_API_ENDPOINT 
+// const ENDPOINT= 'http://localhost:3001/' ||  process.env.REACT_APP_API_ENDPOINT 
 export default class UserContextProvider extends Component {
    
     state = {
         user:''
     }
     componentDidMount(){
+       
         fetch(ENDPOINT+'verify-user',{
             credentials:'include',
             headers:{
