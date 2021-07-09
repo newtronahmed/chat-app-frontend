@@ -16,7 +16,7 @@ const classes = useStyles()
             credentials:'include',
             headers:{
                 'Content-Type':'application/json',
-                // 'Access-Control-Allow-Origin':'http://localhost:3000'
+                'Access-Control-Allow-Origin':'https://brave-visvesvaraya-2ba0ba.netlify.app/login'
             },
             body:JSON.stringify(formData),
         }).then(res=>{
