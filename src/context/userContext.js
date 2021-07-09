@@ -17,6 +17,7 @@ export default class UserContextProvider extends Component {
                 'Content-Type':'application/json'
             },
           }).then(res=>{
+              
             return res.json()
           }).then(data=>{
               

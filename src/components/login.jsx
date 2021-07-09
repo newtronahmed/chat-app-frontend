@@ -14,10 +14,9 @@ const classes = useStyles()
         fetch(ENDPOINT+'login',{
             method:'POST',
             credentials:'include',
-            mode:'cors',
             headers:{
                 'Content-Type':'application/json',
-
+                // 'Access-Control-Allow-Origin':'http://localhost:3000'
             },
             body:JSON.stringify(formData),
         }).then(res=>{
