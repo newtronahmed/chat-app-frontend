@@ -16,7 +16,7 @@ const classes = useStyles()
             credentials:'include',
             headers:{
                 'Content-Type':'application/json',
-                'Access-Control-Allow-Origin':'https://brave-visvesvaraya-2ba0ba.netlify.app/login'
+                'Access-Control-Allow-Origin':'https://brave-visvesvaraya-2ba0ba.netlify.app'
             },
             body:JSON.stringify(formData),
         }).then(res=>{
@@ -46,11 +46,11 @@ const classes = useStyles()
         <>
             <h1>Login</h1>
             <form className={classes.login_container} onSubmit={handleSubmit}>
-                <TextField name='email' label='Email' onChange={handleChange} className={classes.text_input} ></TextField>
+                <TextField name='email' type="email" label='Email' onChange={handleChange} className={classes.text_input} ></TextField>
                 {
                     errors.email && <div style={{color:'red'}}>{errors.email}</div>
                 }
-                <TextField name='password' label='Password' onChange={handleChange} className={classes.text_input}></TextField>
+                <TextField name='password' type='password' label='Password' onChange={handleChange} className={classes.text_input}></TextField>
                 {
                     errors.password && <div style={{color:'red'}}>{errors.password}</div>
                 }

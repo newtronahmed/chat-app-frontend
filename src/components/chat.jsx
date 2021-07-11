@@ -1,5 +1,5 @@
 import React ,{ useRef, useEffect, useState} from 'react'
-import {useParams, Link} from 'react-router-dom'
+import {useParams, Link, Redirect} from 'react-router-dom'
 import {useUserContext} from '../context/userContext'
 import {ListItem, ListItemText, } from '@material-ui/core'
 import io from 'socket.io-client'
@@ -75,6 +75,9 @@ const [message,setMessage] = useState('')
   const roomMessages = messages.filter(each=>{
    return each.room_id === selectedRoom
   })
+  if(!user){
+    return <Redirect to='/login' />
+  }
     return (
         <> 
           {/* <h1>Chat {room_name}</h1> */}
