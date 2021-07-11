@@ -39,9 +39,7 @@ const classes = useStyles()
     const handleChange = (e)=>{
         setFormData({...formData,[e.target.name]:e.target.value})
     }
-    if(user){
-        return <Redirect to='/' />
-    }
+   
     return (
         <>
             <h1>Login</h1>
