@@ -4,12 +4,14 @@ import {useUserContext} from '../context/userContext'
 import {ListItem, ListItemText, } from '@material-ui/core'
 import io from 'socket.io-client'
 import useStyles from './style'
+import ENDPOINT from '../config/endpoint'
 import { TextField, Button, Typography, Paper, Container, Grid } from '@material-ui/core';
 let socket; 
 function ListItemLink (props){
   return <ListItem button component={Link}  {...props}></ListItem>
 }
-const ENPOINT =   process.env.REACT_APP_API_ENDPOINT || 'http://localhost:3001/'
+// const ENPOINT =   process.env.REACT_APP_API_ENDPOINT || 'http://localhost:3001/'
+
 export default function Chat() {
  
   let {room_id,room_name} = useParams();
@@ -18,17 +20,19 @@ export default function Chat() {
   const [selectedRoom,setSelectedRoom] = useState('')
   const [members,setMembers] = useState()
   const {user} =  useUserContext()
+  const [isTyping,setIsTyping] = useState({typing:false, name:''})
+
 const [message,setMessage] = useState('')
 
   // console.log(room_name,room_id)
   useEffect(() => {
-    socket = io(ENPOINT)
+    socket = io(ENDPOINT)
     // console.log(socket)
 
     socket.emit('join',{name:user.name,room_id,user_id:user.user_id})
-    // socket.on('all-messages',function(data){
-    //   setMessages(data)
-    // })
+    socket.on('all-messages',function(data){
+      setMessages(data)
+    })
     socket.on('all-members',function(data){
       // console.log(data)
         setMembers(data)
@@ -43,16 +47,25 @@ const [message,setMessage] = useState('')
       socket.disconnect()
       
     }
-  }, [ENPOINT,room_id,user])
+  }, [ENDPOINT,room_id,user])
   useEffect(() => {
     socket.on('all-rooms',(allrooms)=>{
       console.log('all rooms',allrooms)
       setRooms(allrooms)
-      
-      // setSelectedRoom(allrooms[0]);
+      setSelectedRoom(allrooms[0]._id);
 
     })
   }, [])
+
+  //is typing
+  useEffect(() => {
+    socket.on('typing',function(data){
+      if(data.typing ) {
+        return setIsTyping({typing:true, name:data.name})
+      }
+      return setIsTyping({typing:false,name:''})
+    })
+  }, [message,room_id])
   
   useEffect(() => {
     socket.on('message',function(msg){
@@ -68,8 +81,14 @@ const [message,setMessage] = useState('')
       socket.emit('send-message',message,room_id,()=>{
         setMessage('')
       })
-
-    
+  }
+  const handleChange =(e)=>{
+    setMessage(e.target.value)
+    console.log(e.target.value)
+    if(e.target.value.length > 0) {
+     return socket.emit("typing",{typing:true,name:user.name,room_id})
+    };
+    socket.emit("typing",{typing:false,name:'',room_id})
   }
   const classes = useStyles()
   const roomMessages = messages.filter(each=>{
@@ -91,7 +110,7 @@ const [message,setMessage] = useState('')
                  rooms&& rooms.map((eachRoom,i)=>{
                     return(
                   <ListItemLink selected={selectedRoom === eachRoom._id} onClick={()=>setSelectedRoom(eachRoom._id)} to={'/chat/'+eachRoom._id+'/'+eachRoom.name} >
-                    <ListItemText primary={'#'+eachRoom.name}></ListItemText>
+                    <ListItemText primary={'#'+eachRoom.name} secondary={isTyping.typing ? `${isTyping.name} typing` : ''}></ListItemText>
                   </ListItemLink>
                     )
                   })
@@ -117,7 +136,7 @@ const [message,setMessage] = useState('')
             })}
             </div>
             <form  onSubmit={submitHandler} className={classes.message_form}>
-              <TextField name='messageInput' variant="filled" onChange={(e)=>setMessage(e.target.value)} value={message} label='message' fullWidth />
+              <TextField name='messageInput' variant="filled" onChange={(e)=>handleChange(e)} value={message} label='message' fullWidth />
               <Button variant='outlined' type='submit' align='center'  color='primary' >submit</Button>
             </form> 
           </div>
@@ -125,7 +144,7 @@ const [message,setMessage] = useState('')
               <Grid item xs={12} sm={2}>
                 <Typography variant='h4' >Memebers</Typography>
                 {
-                 members && members.map(eachMember=><ListItem ><ListItemText primary={eachMember.name} secondary={socket?.connected? 'online':'offline'}></ListItemText> </ListItem>)
+                  members && members.map(eachMember=><ListItem ><ListItemText primary={eachMember.name} secondary={socket?.connected? 'online':'offline'}></ListItemText> </ListItem>)
                 }
               </Grid>
             </Grid>

@@ -7,6 +7,7 @@ import {useUserContext} from '../context/userContext'
 export default function Navbar() {
     const classes = useStyles()
     const {user} = useUserContext()
+    console.log(user)
     return (
         <>
             <AppBar>

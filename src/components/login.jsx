@@ -4,7 +4,7 @@ import {useUserContext} from '../context/userContext'
 import useStyles from './style'
 import { Redirect } from 'react-router-dom'
 import ENDPOINT from '../config/endpoint'
-export default function Login() {
+export default function Login(props) {
 const classes = useStyles()
     const [formData,setFormData] = useState({email:'',password:''})
     const [errors,setErrors] = useState({})
@@ -28,8 +28,8 @@ const classes = useStyles()
             }
             if(res.user){
                 const {email,password,name,_id} = res.user
-                
                 setUser({email,password,name,user_id:_id})
+                props.history.push('/')
             }
             
         }).catch(err=>{

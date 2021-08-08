@@ -3,15 +3,17 @@ import io from 'socket.io-client'
 import {Link,Redirect} from 'react-router-dom'
 import {useUserContext} from '../context/userContext'
 import {Card,CardContent, Grid, Typography, Button, TextField} from '@material-ui/core'
-// import ENDPOINT from '../config/endpoint';
+import ENDPOINT from '../config/endpoint'
 
 export default function Home() {
    
-    const ENPOINT = process.env.REACT_APP_API_ENDPOINT 
+    // const ENPOINT = process.env.REACT_APP_API_ENDPOINT 
+    // const ENDPOINT = 'http://localhost:3000'
+    // const _ENDPOINT = ENDPOINT
 
+    const {user} = useUserContext()
     const [room,setroom] = useState('')
     const [rooms,setRooms] = useState([])
-    const {user} = useUserContext()
     const socketRef = useRef()
     // const rooms =[
     //     {
@@ -25,13 +27,13 @@ export default function Home() {
     // ]
 
     useEffect(() => {
-         socketRef.current = io(ENPOINT);
+         socketRef.current = io(ENDPOINT);
 
         return () => {
             socketRef.current.disconnect()
             socketRef.current.off()
         }
-    }, [ENPOINT])
+    }, [ENDPOINT])
     useEffect(() => {
         socketRef.current.on('all-rooms',(allrooms)=>{
             console.log('all rooms',allrooms)
@@ -54,9 +56,9 @@ export default function Home() {
     setroom('')
    }
 //    console.log('user',user);
-   if(!user){
-      return <Redirect to='/login' />
-   }
+//    if(!user){
+//       return <Redirect to='/login' />
+//    }
    
     return (
         <>
@@ -64,7 +66,7 @@ export default function Home() {
             <Grid item xs={12} md={6}  >
                 <Card>
                     <CardContent>
-    <Typography align='center' variant='h3'>Welcome {user.name}</Typography>
+    <Typography align='center' variant='h3'>Welcome {user?.name}</Typography>
                         <TextField name='room' value={room} onChange={(e)=>setroom(e.target.value)} fullWidth label='Room'></TextField>
                         <Button variant='outlined' onClick={handleSubmit} type='submit'> Create Room</Button>
                     </CardContent>

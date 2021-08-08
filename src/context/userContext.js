@@ -7,10 +7,10 @@ export const useUserContext = ()=>(useContext(UserContext))
 export default class UserContextProvider extends Component {
    
     state = {
-        user:''
+        user:null
     }
     componentDidMount(){
-       
+     
         fetch(ENDPOINT+'verify-user',{
             credentials:'include',
             headers:{
@@ -19,9 +19,10 @@ export default class UserContextProvider extends Component {
           }).then(res=>{
               
             return res.json()
-          }).then(data=>{
+          }).then(({user})=>{
               
-            this.setUser({user_id:data._id, name:data.name, email:data.email,password:data.password })
+            this.setUser({user_id:user._id, name:user.name, email:user.email})
+            console.log(this.state.user)
           }).catch(err=>{
               console.log('error verifying jwt',err.message)
           })
