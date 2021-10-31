@@ -64,9 +64,15 @@ export default makeStyles((theme)=>({
         padding:theme.spacing(1),
         marginBottom:theme.spacing(1)
     },
-    message_name:{
+    message_name_owner:{
         display:'block',
         clear:'both',
+        textAlign:'right',
+    },
+    message_name_received:{
+     display:'block',
+        clear:'both',
+
     },
     message_form:{
         clear:'both',

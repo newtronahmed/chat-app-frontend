@@ -129,7 +129,7 @@ const [message,setMessage] = useState('')
              
               return (
                 <div >
-                  <div className={classes.message_name} style={{fontSize:'0.7rem'}}>
+                  <div className={each.name === user.name ? classes.message_name_owner : classes.message_name_received} style={{fontSize:'0.7rem'}}>
                     {each.name}
                   </div>
                   <div className={each.name === user.name ? classes.owner : classes.received}>
