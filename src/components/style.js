@@ -64,6 +64,10 @@ export default makeStyles((theme)=>({
         padding:theme.spacing(1),
         marginBottom:theme.spacing(1)
     },
+    message_name:{
+        display:'block',
+        clear:'both',
+    },
     message_form:{
         clear:'both',
         display:'flex',

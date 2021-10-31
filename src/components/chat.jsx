@@ -128,8 +128,13 @@ const [message,setMessage] = useState('')
             {roomMessages.map(each=>{
              
               return (
-                <div className={classes.message_container}>
-                  <div className={each.name === user.name ? classes.owner : classes.received}>{each.text}</div>
+                <div >
+                  <div className={classes.message_name} style={{fontSize:'0.7rem'}}>
+                    {each.name}
+                  </div>
+                  <div className={each.name === user.name ? classes.owner : classes.received}>
+                  {each.text}
+                  </div>
                 </div>
              
               )
